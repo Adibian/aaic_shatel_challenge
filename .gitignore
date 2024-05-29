@@ -8,3 +8,5 @@ dataset/*.pickle
 
 !dataset/.gitkeep 
 !output/.gitkeep 
+!output/model/.gitkeep
+!output/log/.gitkeep
