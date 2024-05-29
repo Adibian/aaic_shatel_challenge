@@ -1,0 +1,10 @@
+dataset/*
+output/*
+videos/*
+my_trials/*
+dataset/*.pickle
+
+*__pycache__/
+
+!dataset/.gitkeep 
+!output/.gitkeep 

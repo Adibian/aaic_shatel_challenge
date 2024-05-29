@@ -1,0 +1,31 @@
+device: "cuda:1"
+
+model:
+  hidden_dim: 256
+  lstm_layers: 2
+  dropout: 0.2
+
+
+train:
+  train_data_path: "dataset/train.csv"
+  processed_train_data_path: "dataset/processed_train_data.pickle"
+  processed_val_data_path: "dataset/processed_val_data.pickle"
+  metadata_path: "output/metadata.json"
+  val_size: 0.1
+  batch_size: 256
+  optimizer_lr: 0.005
+
+  total_step: 20005
+  save_step: 20000
+  val_step: 2000
+
+  ckpt_path: "output/model"
+  log_path: "output/log"
+
+test:
+  test_data_path: "dataset/test.csv"
+  processed_test_data_path: "dataset/processed_test_data.pickle"
+  result_path: "output/predicted.txt"
+  thresould: 0.5
+  batch_size: 256
+  restore_step: 20000
