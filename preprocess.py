@@ -27,7 +27,7 @@ def normalize_data(data, config, train=True):
             mean, std = data[col].mean(), data[col].std(ddof=0)
             metadata[col] = {"mean":mean, "std":std}
         else:
-            mean, std = metadata[col]["mean"], metadata[col]["mean"]
+            mean, std = metadata[col]["mean"], metadata[col]["std"]
         data[col] = (data[col] - mean)/std
     if train:
         with open(config["train"]["metadata_path"], "w") as f:
