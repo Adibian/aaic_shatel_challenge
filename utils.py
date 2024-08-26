@@ -20,7 +20,7 @@ def one_batch_processe(batch, model, loss_fn, optimizer, config, log_values, tra
         optimizer.step()
 
     prdicted_labels = output>0.5
-    accuracy, precision, recall, f1_score = calculate_metrices(prdicted_labels.cpu().numpy(), real_label.cpu().numpy())
+    accuracy, precision, recall, f1_score = calculate_metrices(prdicted_labels.detach().cpu().numpy(), real_label.cpu().numpy())
 
     log_values["loss"] += loss.item()
     log_values["accuracy"] += accuracy
