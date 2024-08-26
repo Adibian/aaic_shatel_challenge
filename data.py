@@ -21,6 +21,6 @@ class ShutelDataset(Dataset):
         input_data = torch.from_numpy(self.data[contract_id]).float()
         if not self.is_test_data:
             label = torch.tensor(self.labels[contract_id]).float()
-            return {"inputs": input_data, "labels": 1-label}
+            return {"inputs": input_data, "labels": label}
         else:
             return {"inputs": input_data}
