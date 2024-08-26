@@ -2,11 +2,11 @@ import torch
 
 
 def calculate_metrices(prdicted_labels, labels):
-    accuracy = (prdicted_labels==labels).sum() / len(labels)
-    precision = torch.logical_and(prdicted_labels==1, prdicted_labels==labels).sum() / (prdicted_labels==1).sum()
-    recall = torch.logical_and(labels==1, prdicted_labels==labels).sum() / (labels==1).sum()
-    f1_score = 2*(precision*recall)/(precision+recall)
-    return accuracy.item(), precision.item(), recall.item(), f1_score.item()
+    precision_macro = precision_score(labels, prdicted_labels, average="macro", zero_division=0)
+    recall_macro = recall_score(labels, prdicted_labels, average="macro", zero_division=0)
+    f1_score_macro = f1_score(labels, prdicted_labels, average="macro")
+    accuracy = accuracy_score(labels, prdicted_labels)
+    return accuracy, precision_macro, recall_macro, f1_score_macro
 
 def one_batch_processe(batch, model, loss_fn, optimizer, config, log_values, train=True):
     input_tensor = batch["inputs"].to(config["device"])
@@ -20,7 +20,7 @@ def one_batch_processe(batch, model, loss_fn, optimizer, config, log_values, tra
         optimizer.step()
 
     prdicted_labels = output>0.5
-    accuracy, precision, recall, f1_score = calculate_metrices(prdicted_labels, labels)
+    accuracy, precision, recall, f1_score = calculate_metrices(prdicted_labels.cpu().numpy(), real_label.cpu().numpy())
 
     log_values["loss"] += loss.item()
     log_values["accuracy"] += accuracy
